@@ -23,6 +23,16 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     return String.fromCharCode.apply(null, view)
   }
 
+  function getKey(keyId) {
+    let key = keys[keyId];
+
+    if(key instanceof CryptoKey) {
+      return Promise.resolve(key);
+    } else {
+      return Promise.reject('Bad Key');
+    }
+  }
+
   function generateKey(password, salt) {
     return Scheduler.nativeBinding(function(cb) {
       var pwBuf = str2ab(password),
