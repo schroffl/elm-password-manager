@@ -25,7 +25,8 @@ convertError str =
 
 generateKey : String -> Task CryptoError CryptoKey
 generateKey password =
-    Native.Crypto.generateKey password
+    -- TODO: Don't use a fixed salt
+    Native.Crypto.generateKey password "salt"
         |> Task.map CryptoKey
         |> Task.mapError convertError
 
