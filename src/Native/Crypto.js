@@ -1,6 +1,6 @@
 var _schroffl$elm_password_manager$Native_Crypto = (function() {
   var subtle = window.crypto.subtle,
-      toElmList = _elm_lang$core$Native_List.fromArray,
+      ElmList = _elm_lang$core$Native_List,
       Scheduler = _elm_lang$core$Native_Scheduler,
       Ok = _elm_lang$core$Result$Ok,
       Err = _elm_lang$core$Result$Err;
@@ -64,7 +64,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     try {
       var buf = new Uint16Array(8);
       crypto.getRandomValues(buf);
-      return Ok(toElmList(Array.from(buf)));
+      return Ok(ElmList.fromArray(Array.from(buf)));
     } catch(e) {
       return Err(e.toString());
     }
