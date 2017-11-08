@@ -10,6 +10,7 @@ type CryptoKey
 
 type CryptoError
     = UnknownError String
+    | BadKey
 
 
 type alias IV =
@@ -19,6 +20,9 @@ type alias IV =
 convertError : String -> CryptoError
 convertError str =
     case str of
+        "BadKey" ->
+            BadKey
+
         _ ->
             UnknownError str
 
