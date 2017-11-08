@@ -60,3 +60,9 @@ encrypt : CryptoKey -> IV -> String -> Task CryptoError EncryptedData
 encrypt (CryptoKey id) iv data =
     Native.Crypto.encrypt id iv data
         |> Task.mapError convertError
+
+
+decrypt : CryptoKey -> IV -> EncryptedData -> Task CryptoError String
+decrypt (CryptoKey id) iv data =
+    Native.Crypto.decrypt id iv data
+        |> Task.mapError convertError

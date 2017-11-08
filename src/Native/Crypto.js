@@ -89,9 +89,25 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     });
   }
 
+  function decrypt(keyId, elmIv, elmData) {
+    return Scheduler.nativeBinding(function(cb) {
+      var iv = new Uint16Array(ElmList.toArray(elmIv)),
+          dataArr = new Uint16Array(ElmList.toArray(elmData));
+
+      getKey(keyId)
+        .then(function(key) {
+          cb(Scheduler.fail('Not yet implemented'));
+        })
+        .catch(function(e) {
+          cb(Scheduler.fail(e.toString));
+        });
+    });
+  }
+
   return {
     'generateKey': F2(generateKey),
     'generateIV': generateIV,
-    'encrypt': F3(encrypt)
+    'encrypt': F3(encrypt),
+    'decrypt': F3(decrypt)
   };
 })();
