@@ -35,9 +35,9 @@ generateKey password =
         |> Task.mapError convertError
 
 
-generateIV : Result CryptoError (List Int)
+generateIV : Task CryptoError IV
 generateIV =
     -- Somehow the function is only properly called if it's applied to an argument
-    -- That's why the zero is where it is
+    -- That's the only reason for the zero to be there
     Native.Crypto.generateIV 0
-        |> Result.mapError convertError
+        |> Task.mapError convertError

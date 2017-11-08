@@ -1,9 +1,7 @@
 var _schroffl$elm_password_manager$Native_Crypto = (function() {
   var subtle = window.crypto.subtle,
       ElmList = _elm_lang$core$Native_List,
-      Scheduler = _elm_lang$core$Native_Scheduler,
-      Ok = _elm_lang$core$Result$Ok,
-      Err = _elm_lang$core$Result$Err;
+      Scheduler = _elm_lang$core$Native_Scheduler;
 
   var keys = [];
 
@@ -61,13 +59,19 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
   }
 
   function generateIV() {
-    try {
-      var buf = new Uint16Array(8);
-      crypto.getRandomValues(buf);
-      return Ok(ElmList.fromArray(Array.from(buf)));
-    } catch(e) {
-      return Err(e.toString());
-    }
+    return Scheduler.nativeBinding(function(cb) {
+      try {
+        var buf = new Uint16Array(8);
+        
+        crypto.getRandomValues(buf);
+
+        var list = ElmList.fromArray(Array.from(buf));
+
+        cb(Scheduler.succeed(list));
+      } catch(e) {
+        cb(Scheduler.fail(e.toString));
+      }
+    });
   }
 
   return {
