@@ -74,8 +74,24 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     });
   }
 
+  function encrypt(keyId, elmIv, str) {
+    return Scheduler.nativeBinding(function(cb) {
+      var ivArr = ElmList.toArray(elmIv),
+          iv = new Uint16Array(ivArr);
+
+      getKey(keyId)
+        .then(function(key) {
+          cb(Scheduler.fail('Not yet implemented'));
+        })
+        .catch(function(e) {
+          cb(Scheduler.fail(e.toString));
+        });
+    });
+  }
+
   return {
     'generateKey': F2(generateKey),
-    'generateIV': generateIV
+    'generateIV': generateIV,
+    'encrypt': F3(encrypt)
   };
 })();

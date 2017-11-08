@@ -1,4 +1,13 @@
-module Crypto exposing (CryptoKey, CryptoError(..), IV, generateKey, generateIV)
+module Crypto
+    exposing
+        ( CryptoKey
+        , CryptoError(..)
+        , IV
+        , EncryptedData
+        , generateKey
+        , generateIV
+        , encrypt
+        )
 
 import Task exposing (Task)
 import Native.Crypto
@@ -14,6 +23,10 @@ type CryptoError
 
 
 type alias IV =
+    List Int
+
+
+type alias EncryptedData =
     List Int
 
 
@@ -40,4 +53,10 @@ generateIV =
     -- Somehow the function is only properly called if it's applied to an argument
     -- That's the only reason for the zero to be there
     Native.Crypto.generateIV 0
+        |> Task.mapError convertError
+
+
+encrypt : CryptoKey -> IV -> String -> Task CryptoError EncryptedData
+encrypt (CryptoKey id) iv data =
+    Native.Crypto.encrypt id iv data
         |> Task.mapError convertError
