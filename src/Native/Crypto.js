@@ -21,6 +21,12 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     return String.fromCharCode.apply(null, view)
   }
 
+  function ab2arr(buf) {
+    var view = new Uint16Array(buf);
+
+    return Array.from(view);
+  }
+
   function getKey(keyId) {
     var key = keys[keyId];
 
@@ -78,12 +84,20 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
   function encrypt(keyId, elmIv, str) {
     return Scheduler.nativeBinding(function(cb) {
       var ivArr = ElmList.toArray(elmIv),
-          iv = new Uint16Array(ivArr);
+          iv = new Uint16Array(ivArr),
+          dataBuf = str2ab(str);
 
       getKey(keyId)
         .then(function(key) {
-          cb(Scheduler.fail('Not yet implemented'));
+          return subtle.encrypt(
+            {'name': 'AES-GCM', 'iv': iv, 'length': 128},
+            key,
+            dataBuf
+            );
         })
+        .then(ab2arr)
+        .then(Scheduler.succeed)
+        .then(cb)
         .catch(function(e) {
           cb(Scheduler.fail(e.toString()));
         });
