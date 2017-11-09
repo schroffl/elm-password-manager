@@ -39,9 +39,6 @@ update msg model =
                 , Cmd.map SetupMessage command
                 )
 
-        _ ->
-            ( model, Cmd.none )
-
 
 view : Model -> Html Msg
 view model =
