@@ -2,14 +2,15 @@ module Main exposing (main)
 
 import Html exposing (..)
 import Crypto exposing (CryptoKey, CryptoError)
+import Setup
 
 
 type Msg
-    = GotKey (Result CryptoError CryptoKey)
+    = SetupMessage Setup.Msg
 
 
 type alias Model =
-    {}
+    { setupModel : Setup.Model }
 
 
 main =
@@ -23,14 +24,27 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( { setupModel = Setup.init }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        SetupMessage setupMsg ->
+            let
+                ( newModel, command ) =
+                    Setup.update setupMsg model.setupModel
+            in
+                ( { model | setupModel = newModel }
+                , Cmd.map SetupMessage command
+                )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
-    text "test"
+    div []
+        [ Html.map SetupMessage <| Setup.view model.setupModel
+        ]
