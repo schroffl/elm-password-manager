@@ -45,6 +45,5 @@
 
 .setup .btn-unlock {
   grid-row: 8;
-  grid-column-start: 3;
-  grid-column-end: 4;
+  grid-column: 3;
 }
