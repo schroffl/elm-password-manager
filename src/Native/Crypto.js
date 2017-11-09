@@ -85,7 +85,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
           cb(Scheduler.fail('Not yet implemented'));
         })
         .catch(function(e) {
-          cb(Scheduler.fail(e.toString));
+          cb(Scheduler.fail(e.toString()));
         });
     });
   }
@@ -100,7 +100,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
           cb(Scheduler.fail('Not yet implemented'));
         })
         .catch(function(e) {
-          cb(Scheduler.fail(e.toString));
+          cb(Scheduler.fail(e.toString()));
         });
     });
   }
