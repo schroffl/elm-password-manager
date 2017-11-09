@@ -22,7 +22,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
   }
 
   function getKey(keyId) {
-    let key = keys[keyId];
+    var key = keys[keyId];
 
     if(key instanceof CryptoKey) {
       return Promise.resolve(key);
@@ -49,7 +49,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
           );
         })
         .then(function(key) {
-          let keyId = keys.push(key) - 1;
+          var keyId = keys.push(key) - 1;
 
           cb(Scheduler.succeed(keyId));
         })
