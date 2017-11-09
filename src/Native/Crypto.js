@@ -31,16 +31,17 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     }
   }
 
-  function generateKey(password, salt) {
+  function generateKey(password, salt, strength) {
     return Scheduler.nativeBinding(function(cb) {
       var pwBuf = str2ab(password),
-          saltBuf = str2ab(salt);
+          saltBuf = str2ab(salt),
+          iterations = Math.pow(2, strength);
 
       subtle
         .importKey('raw', pwBuf, { 'name': 'PBKDF2' }, false, [ 'deriveKey' ])
         .then(function (baseKey) {
           return subtle.deriveKey(
-            { 'name': 'PBKDF2', 'salt': saltBuf, 'iterations': 10000, 'hash': 'SHA-512' },
+            { 'name': 'PBKDF2', 'salt': saltBuf, 'iterations': iterations, 'hash': 'SHA-512' },
             baseKey,
             { 'name': 'AES-GCM', 'length': 128 },
             true,
@@ -105,7 +106,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
   }
 
   return {
-    'generateKey': F2(generateKey),
+    'generateKey': F3(generateKey),
     'generateIV': generateIV,
     'encrypt': F3(encrypt),
     'decrypt': F3(decrypt)
