@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Html exposing (..)
+import Html.Attributes exposing (style)
 import Crypto exposing (CryptoKey, CryptoError)
 import Setup
 
@@ -42,6 +43,6 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ style [ ( "height", "100%" ) ] ]
         [ Html.map SetupMessage <| Setup.view model.setupModel
         ]
