@@ -33,7 +33,7 @@ type alias EncryptedData =
 convertError : String -> CryptoError
 convertError str =
     case str of
-        "BadKey" ->
+        "Bad Key" ->
             BadKey
 
         _ ->
