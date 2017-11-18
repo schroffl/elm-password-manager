@@ -1,0 +1,25 @@
+{
+  "name": "elm-password-manager",
+  "version": "1.0.0",
+  "description": "Elm rewrite of https://github.com/schroffl/browser-password",
+  "main": "",
+  "dependencies": {},
+  "devDependencies": {
+    "elm": "^0.18.0",
+    "elm-live": "^2.7.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "elm-live src/Main.elm --open -- --output js/main.js --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schroffl/elm-password-manager.git"
+  },
+  "author": "schroffl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schroffl/elm-password-manager/issues"
+  },
+  "homepage": "https://github.com/schroffl/elm-password-manager#readme"
+}
