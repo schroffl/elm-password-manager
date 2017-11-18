@@ -107,13 +107,22 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
 
   function decrypt(keyId, elmIv, elmData) {
     return Scheduler.nativeBinding(function(cb) {
-      var iv = new Uint16Array(ElmList.toArray(elmIv)),
-          dataArr = new Uint16Array(ElmList.toArray(elmData));
+      var ivArr = ElmList.toArray(elmIv),
+          iv = new Uint16Array(ivArr),
+          dataArr = ElmList.toArray(elmData),
+          dataBuf = new Uint16Array(dataArr);
 
       getKey(keyId)
         .then(function(key) {
-          cb(Scheduler.fail('Not yet implemented'));
+          return subtle.decrypt(
+            { 'name': 'AES-GCM', 'iv': iv, 'length': 128 },
+            key,
+            dataBuf
+          );
         })
+        .then(ab2str)
+        .then(Scheduler.succeed)
+        .then(cb)
         .catch(function(e) {
           cb(Scheduler.fail(e.toString()));
         });
