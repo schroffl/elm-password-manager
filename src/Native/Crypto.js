@@ -90,7 +90,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
       getKey(keyId)
         .then(function(key) {
           return subtle.encrypt(
-            {'name': 'AES-GCM', 'iv': iv, 'length': 128},
+            { 'name': 'AES-GCM', 'iv': iv, 'length': 128 },
             key,
             dataBuf
           );
