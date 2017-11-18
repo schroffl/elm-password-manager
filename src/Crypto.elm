@@ -7,6 +7,7 @@ module Crypto
         , generateKey
         , generateIV
         , encrypt
+        , decrypt
         )
 
 import Task exposing (Task)
