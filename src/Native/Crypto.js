@@ -93,7 +93,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
             {'name': 'AES-GCM', 'iv': iv, 'length': 128},
             key,
             dataBuf
-            );
+          );
         })
         .then(ab2arr)
         .then(Scheduler.succeed)
