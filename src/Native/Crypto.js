@@ -96,6 +96,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
           );
         })
         .then(ab2arr)
+        .then(ElmList.fromArray)
         .then(Scheduler.succeed)
         .then(cb)
         .catch(function(e) {
