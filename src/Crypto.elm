@@ -15,7 +15,7 @@ import Native.Crypto
 
 
 type CryptoKey
-    = CryptoKey Int
+    = CryptoKey
 
 
 type CryptoError
@@ -45,7 +45,6 @@ generateKey : String -> Task CryptoError CryptoKey
 generateKey password =
     -- TODO: Don't use a fixed salt
     Native.Crypto.generateKey password "salt" 19
-        |> Task.map CryptoKey
         |> Task.mapError convertError
 
 
@@ -58,12 +57,12 @@ generateIV =
 
 
 encrypt : CryptoKey -> IV -> String -> Task CryptoError EncryptedData
-encrypt (CryptoKey id) iv data =
-    Native.Crypto.encrypt id iv data
+encrypt key iv data =
+    Native.Crypto.encrypt key iv data
         |> Task.mapError convertError
 
 
 decrypt : CryptoKey -> IV -> EncryptedData -> Task CryptoError String
-decrypt (CryptoKey id) iv data =
-    Native.Crypto.decrypt id iv data
+decrypt key iv data =
+    Native.Crypto.decrypt key iv data
         |> Task.mapError convertError

@@ -3,8 +3,6 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
       ElmList = _elm_lang$core$Native_List,
       Scheduler = _elm_lang$core$Native_Scheduler;
 
-  var keys = [];
-
   function str2ab(str) {
     var buf = new ArrayBuffer(str.length * 2),
         view = new Uint16Array(buf);
@@ -27,9 +25,7 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     return Array.from(view);
   }
 
-  function getKey(keyId) {
-    var key = keys[keyId];
-
+  function checkKey(key) {
     if(key instanceof CryptoKey) {
       return Promise.resolve(key);
     } else {
@@ -54,11 +50,8 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
             [ 'encrypt', 'decrypt' ]
           );
         })
-        .then(function(key) {
-          var keyId = keys.push(key) - 1;
-
-          cb(Scheduler.succeed(keyId));
-        })
+        .then(Scheduler.succeed)
+        .then(cb)
         .catch(function(err) {
           cb(Scheduler.fail(err.toString()));
         });
@@ -81,13 +74,13 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     });
   }
 
-  function encrypt(keyId, elmIv, str) {
+  function encrypt(key, elmIv, str) {
     return Scheduler.nativeBinding(function(cb) {
       var ivArr = ElmList.toArray(elmIv),
           iv = new Uint16Array(ivArr),
           dataBuf = str2ab(str);
 
-      getKey(keyId)
+      checkKey(key)
         .then(function(key) {
           return subtle.encrypt(
             { 'name': 'AES-GCM', 'iv': iv, 'length': 128 },
@@ -105,14 +98,14 @@ var _schroffl$elm_password_manager$Native_Crypto = (function() {
     });
   }
 
-  function decrypt(keyId, elmIv, elmData) {
+  function decrypt(key, elmIv, elmData) {
     return Scheduler.nativeBinding(function(cb) {
       var ivArr = ElmList.toArray(elmIv),
           iv = new Uint16Array(ivArr),
           dataArr = ElmList.toArray(elmData),
           dataBuf = new Uint16Array(dataArr);
 
-      getKey(keyId)
+      checkKey(key)
         .then(function(key) {
           return subtle.decrypt(
             { 'name': 'AES-GCM', 'iv': iv, 'length': 128 },
