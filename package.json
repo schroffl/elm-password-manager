@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "elm-live src/Main.elm --open -- --output js/main.js --debug"
+    "watch": "elm-live src/Main.elm --open --pushstate -- --output js/main.js --debug"
   },
   "repository": {
     "type": "git",
