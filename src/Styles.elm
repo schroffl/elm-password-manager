@@ -49,6 +49,34 @@ container =
     ]
 
 
+navbar : List Style
+navbar =
+    let
+        h =
+            (px 50)
+    in
+        [ displayFlex
+        , listStyle none
+        , width (pct 100)
+        , height h
+        , lineHeight h
+        , backgroundColor defaultTheme.primary
+        , borderBottom3 (px 1) solid defaultTheme.secondary
+        , Css.boxShadow5 (px 0) (px 0) (px 5) (px 1) defaultTheme.secondary
+        ]
+
+
+navbarItem : List Style
+navbarItem =
+    [ flexGrow (num 1)
+    , textAlign center
+    , cursor pointer
+    , hover
+        [ color defaultTheme.highlightColor
+        ]
+    ]
+
+
 lock : List Style
 lock =
     [ position absolute

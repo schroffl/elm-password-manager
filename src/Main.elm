@@ -135,7 +135,16 @@ view model =
 
 navbar : Route -> Html Msg
 navbar route =
-    nav [] []
+    let
+        navbutton btnroute content =
+            if btnroute == route then
+                li [ css Styles.navbarItem ] [ text content ]
+            else
+                li [ css Styles.navbarItem, onClick <| Goto btnroute ] [ text content ]
+    in
+        [ ( VaultRoute, "Vault" ), ( LoginRoute, "Logout" ) ]
+            |> List.map (uncurry navbutton)
+            |> nav [ css Styles.navbar ]
 
 
 lockView : Password -> Bool -> Html Msg
