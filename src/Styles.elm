@@ -13,8 +13,8 @@ type alias Theme =
 
 defaultTheme : Theme
 defaultTheme =
-    { primary = hex "ccc"
-    , secondary = hsl 0 0 0.95
+    { primary = hsl 0 0 0.95
+    , secondary = hex "ccc"
     , highlightColor = hex "80bdff"
     }
 
@@ -36,7 +36,7 @@ container =
     , width (pct 40)
     , marginLeft (pct 30)
     , marginRight (pct 30)
-    , border3 (px 1) solid defaultTheme.primary
+    , border3 (px 1) solid defaultTheme.secondary
     , borderRadius (px 3)
     , top (px 20)
     , bottom (px 20)
@@ -52,7 +52,7 @@ container =
 lock : List Style
 lock =
     [ position absolute
-    , backgroundColor defaultTheme.secondary
+    , backgroundColor defaultTheme.primary
     , width (pct 100)
     , height (pct 100)
     , backgroundImage (url "/img/gear.svg")
@@ -91,7 +91,7 @@ lockInput =
     [ width (pct 100)
     , height (px 35)
     , fontSize (px 18)
-    , border3 (px 1) solid defaultTheme.primary
+    , border3 (px 1) solid defaultTheme.secondary
     , borderRadius (px 3)
     , textAlign center
     , property "transition" "border-color 100ms linear"
