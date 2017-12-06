@@ -110,20 +110,24 @@ update msg model =
 view : Model -> StandardHtml.Html Msg
 view model =
     let
+        shared =
+            [ ( "viewport-meta", meta "viewport" "width=device-width, initial-scale=1, user-scalable=no" )
+            , ( "navbar", navbar model.route )
+            , ( "lock", lockView model.password (model.route /= LoginRoute) )
+            ]
+
         containerDiv =
             toUnstyled
                 << Keyed.node "div" [ css Styles.container ]
-                << (::) ( "viewport-meta", meta "viewport" "width=device-width, initial-scale=1, user-scalable=no" )
+                << (++) shared
     in
         containerDiv <|
             case model.route of
                 LoginRoute ->
-                    [ ( "lock", lockView model.password False ) ]
+                    []
 
                 VaultRoute ->
-                    [ ( "lock", lockView model.password True )
-                    , ( "vault", vaultView )
-                    ]
+                    [ ( "vault", vaultView ) ]
 
                 NotFoundRoute ->
                     [ ( "not-found", text "404 Not Found" ) ]
