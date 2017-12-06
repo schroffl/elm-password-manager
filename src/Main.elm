@@ -129,6 +129,11 @@ view model =
                     [ ( "not-found", text "404 Not Found" ) ]
 
 
+navbar : Route -> Html Msg
+navbar route =
+    nav [] []
+
+
 lockView : Password -> Bool -> Html Msg
 lockView password unlocked =
     let
