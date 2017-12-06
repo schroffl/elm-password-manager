@@ -62,7 +62,7 @@ lock =
     , displayFlex
     , alignItems center
     , justifyContent center
-    , property "transition" "margin-left ease-out, 300ms"
+    , property "transition" "margin-left ease-out 300ms"
     ]
 
 
@@ -94,7 +94,7 @@ lockInput =
     , border3 (px 1) solid defaultTheme.primary
     , borderRadius (px 3)
     , textAlign center
-    , property "transition" "border-color, 100ms linear"
+    , property "transition" "border-color 100ms linear"
     , focus
         [ outline none
         , borderColor defaultTheme.highlightColor
