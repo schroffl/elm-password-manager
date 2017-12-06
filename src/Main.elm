@@ -112,8 +112,8 @@ view model =
     let
         shared =
             [ ( "viewport-meta", meta "viewport" "width=device-width, initial-scale=1, user-scalable=no" )
-            , ( "navbar", navbar model.route )
             , ( "lock", lockView model.password (model.route /= LoginRoute) )
+            , ( "navbar", navbar model.route )
             ]
 
         containerDiv =
