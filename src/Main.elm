@@ -111,21 +111,22 @@ view : Model -> StandardHtml.Html Msg
 view model =
     let
         containerDiv =
-            toUnstyled << Keyed.node "div" [ css Styles.container ]
+            toUnstyled
+                << Keyed.node "div" [ css Styles.container ]
+                << (::) ( "viewport-meta", meta "viewport" "width=device-width, initial-scale=1, user-scalable=no" )
     in
         containerDiv <|
-            ( "viewport-meta", meta "viewport" "width=device-width, initial-scale=1, user-scalable=no" )
-                :: case model.route of
-                    LoginRoute ->
-                        [ ( "lock", lockView model.password False ) ]
+            case model.route of
+                LoginRoute ->
+                    [ ( "lock", lockView model.password False ) ]
 
-                    VaultRoute ->
-                        [ ( "lock", lockView model.password True )
-                        , ( "vault", vaultView )
-                        ]
+                VaultRoute ->
+                    [ ( "lock", lockView model.password True )
+                    , ( "vault", vaultView )
+                    ]
 
-                    NotFoundRoute ->
-                        [ ( "not-found", text "404 Not Found" ) ]
+                NotFoundRoute ->
+                    [ ( "not-found", text "404 Not Found" ) ]
 
 
 lockView : Password -> Bool -> Html Msg
