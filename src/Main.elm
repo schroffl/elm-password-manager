@@ -165,12 +165,5 @@ lockView password unlocked =
 
 vaultView : Html Msg
 vaultView =
-    div
-        [ onClick <| Goto LoginRoute
-        ]
+    div [ onClick <| Goto LoginRoute ]
         [ text "Vault Route" ]
-
-
-vaultHeader : Html Msg
-vaultHeader =
-    div [] []
