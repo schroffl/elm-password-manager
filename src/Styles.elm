@@ -163,6 +163,7 @@ vault =
     , padding zero
     , overflowY auto
     , height <| calc (pct 100) minus (px 51)
+    , property "-webkit-overflow-scrolling" "touch"
     ]
 
 
