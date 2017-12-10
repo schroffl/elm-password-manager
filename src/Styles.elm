@@ -41,11 +41,16 @@ container =
     , top (px 20)
     , bottom (px 20)
     , withMedia [ smallWidth ]
-        [ width (pct 100)
-        , margin (px 0)
-        , top (px 0)
-        , bottom (px 0)
+        [ width unset
+        , margin zero
+        , top zero
+        , bottom zero
+        , left zero
+        , right zero
+        , border unset
+        , borderRadius zero
         ]
+    , fontFamily sansSerif
     ]
 
 
@@ -78,6 +83,22 @@ navbarItem =
     ]
 
 
+flatButton : List Style
+flatButton =
+    [ backgroundColor transparent
+    , border zero
+    , cursor pointer
+    , hover
+        [ backgroundColor defaultTheme.primary
+        ]
+    , focus
+        [ outline none
+        ]
+    , margin zero
+    , padding zero
+    ]
+
+
 lock : List Style
 lock =
     [ position absolute
@@ -105,8 +126,8 @@ lockInputContainer : List Style
 lockInputContainer =
     [ position relative
     , width (pct 50)
-    , margin (px 0)
-    , padding (px 0)
+    , margin zero
+    , padding zero
     , displayFlex
     , flexWrap wrap
     , justifyContent center
@@ -132,4 +153,59 @@ lockInput =
         [ height (px 20)
         , fontSize (px 15)
         ]
+    ]
+
+
+vault : List Style
+vault =
+    [ listStyle none
+    , margin zero
+    , padding zero
+    , overflowY auto
+    , height <| calc (pct 100) minus (px 51)
+    ]
+
+
+entry : List Style
+entry =
+    [ property "display" "grid"
+    , property "grid-template-columns" "60px auto 60px 60px"
+    , property "grid-template-rows" "60px"
+    , lineHeight (px 60)
+    , margin zero
+    , padding zero
+    , borderBottom3 (px 1) solid defaultTheme.secondary
+    , withMedia [ smallHeight ]
+        [ property "grid-template-columns" "50px auto 50px 50px"
+        , property "grid-template-rows" "50px"
+        , lineHeight (px 50)
+        ]
+    ]
+
+
+iconContainer : List Style
+iconContainer =
+    [ margin (px 2)
+    , padding (px 1)
+    , border3 (px 2) solid defaultTheme.secondary
+    , borderRadius (pct 50)
+    , overflow hidden
+    ]
+
+
+iconBorderConnector : List Style
+iconBorderConnector =
+    []
+
+
+entryIcon : List Style
+entryIcon =
+    [ width (pct 100)
+    , borderRadius inherit
+
+    {- width (pct 90)
+       , margin auto
+       , border3 (px 1) solid defaultTheme.secondary
+       , borderRadius (pct 50)
+    -}
     ]

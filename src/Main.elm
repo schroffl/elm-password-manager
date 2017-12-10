@@ -8,6 +8,7 @@ import Html as StandardHtml
 import Navigation
 import UrlParser
 import Styles
+import Icons
 
 
 type Msg
@@ -26,9 +27,23 @@ type alias Password =
     String
 
 
+type alias Id =
+    String
+
+
+type alias Entry =
+    { id : Id
+    , name : String
+    , iconUrl : String
+    , username : String
+    , password : String
+    }
+
+
 type alias Model =
     { route : Route
     , password : Password
+    , entries : List Entry
     }
 
 
@@ -83,10 +98,32 @@ main =
         }
 
 
+{-| NOTE: Remove this function. It's currently only used for filling the entry-list of the model
+-}
+repeat : Int -> a -> List a
+repeat n_ x_ =
+    let
+        repeat_ n x xs =
+            if n <= 0 then
+                xs
+            else
+                x :: repeat_ (n - 1) x xs
+    in
+        repeat_ n_ x_ []
+
+
 init : Navigation.Location -> ( Model, Cmd Msg )
 init location =
     ( { route = parseLocation location
       , password = ""
+      , entries =
+            repeat 100
+                { id = "a8df777e"
+                , name = "Test"
+                , iconUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/512px-Elm_logo.svg.png"
+                , username = "test-user"
+                , password = "123456"
+                }
       }
     , Cmd.none
     )
@@ -127,7 +164,7 @@ view model =
                     []
 
                 VaultRoute ->
-                    [ ( "vault", vaultView ) ]
+                    [ ( "vault", vaultView model.entries ) ]
 
                 NotFoundRoute ->
                     [ ( "not-found", text "404 Not Found" ) ]
@@ -172,7 +209,20 @@ lockView password unlocked =
             ]
 
 
-vaultView : Html Msg
-vaultView =
-    div [ onClick <| Goto LoginRoute ]
-        [ text "Vault Route" ]
+vaultView : List Entry -> Html Msg
+vaultView entries =
+    entries
+        |> List.map (\entry -> ( entry.id, entryView entry ))
+        |> Keyed.ul [ css Styles.vault ]
+
+
+entryView : Entry -> Html Msg
+entryView entry =
+    li [ css Styles.entry ]
+        [ div [ css Styles.iconContainer ]
+            [ img [ src entry.iconUrl, css Styles.entryIcon ] []
+            ]
+        , text entry.name
+        , button [ css Styles.flatButton, title "Copy to clipboard" ] [ Icons.clipboard ]
+        , button [ css Styles.flatButton, title "Edit" ] [ Icons.edit2 ]
+        ]
