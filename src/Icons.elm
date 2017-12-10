@@ -10,24 +10,26 @@ module Icons
         , x
         )
 
-import Html exposing (Html)
+import Html.Styled exposing (Html, fromUnstyled)
 import Svg exposing (Svg, svg)
 import Svg.Attributes exposing (..)
 
 
 svgFeatherIcon : String -> List (Svg msg) -> Html msg
-svgFeatherIcon className =
-    svg
-        [ class <| "feather feather-" ++ className
-        , fill "none"
-        , height "24"
-        , stroke "currentColor"
-        , strokeLinecap "round"
-        , strokeLinejoin "round"
-        , strokeWidth "2"
-        , viewBox "0 0 24 24"
-        , width "24"
-        ]
+svgFeatherIcon className children =
+    fromUnstyled <|
+        svg
+            [ class <| "feather feather-" ++ className
+            , fill "none"
+            , height "24"
+            , stroke "currentColor"
+            , strokeLinecap "round"
+            , strokeLinejoin "round"
+            , strokeWidth "2"
+            , viewBox "0 0 24 24"
+            , width "24"
+            ]
+            children
 
 
 check : Html msg
