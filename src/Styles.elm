@@ -62,7 +62,8 @@ navbar =
         , lineHeight h
         , backgroundColor defaultTheme.primary
         , borderBottom3 (px 1) solid defaultTheme.secondary
-        , Css.boxShadow5 (px 0) (px 0) (px 5) (px 1) defaultTheme.secondary
+
+        -- , Css.boxShadow5 zero zero (px 5) (px 1) defaultTheme.secondary
         ]
 
 
