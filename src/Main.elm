@@ -171,10 +171,10 @@ view model =
 
 
 navbar : Route -> Html Msg
-navbar route =
+navbar activeRoute =
     let
         navbutton btnroute content =
-            if btnroute == route then
+            if btnroute == activeRoute then
                 li [ css Styles.navbarItem ] [ text content ]
             else
                 li [ css Styles.navbarItem, onClick <| Goto btnroute ] [ text content ]
